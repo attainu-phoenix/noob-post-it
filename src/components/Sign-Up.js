@@ -93,7 +93,7 @@ class SignUpComponent extends React.Component {
             </nav>
       <div className="row">
           <div className="offset-md-4 col-md-4">
-          <h2 className="display-4 text-center">Login Here</h2>
+          <h2 className="display-4 text-center">Sign Up Here</h2>
             <hr/>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
