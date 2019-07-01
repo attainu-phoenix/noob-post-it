@@ -41,8 +41,8 @@ class LoginComponent extends React.Component {
   }
 
   checkCredentials() {
-    let { email, password } = JSON.stringify(this.state);
-    let User = localStorage.getItem("user");
+    let { email, password } = this.state;
+    let User = JSON.parse(localStorage.getItem("user"));
     return User.email !== email || User.password !== password ? false : true;
   }
 
