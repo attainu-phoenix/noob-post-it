@@ -1,11 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App.js";
+import LoginComponent from "./components/Login.js";
 
 
 class Home extends React.Component {
   render() {
-    return (<App />);
+    return (
+      <div className="container-fullwidth">
+      <div className="row">
+        <div className="col-md-12">
+          <LoginComponent />
+        </div>
+      </div>
+      </div>
+    );
   }
 }
 
