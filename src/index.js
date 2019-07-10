@@ -4,8 +4,7 @@ import Login from "./components/Login.js";
 import {Provider} from "react-redux";
 import {store} from "./store/store.js";
 import {ManageAccounts} from "./components/Manage-Accounts.js";
-import SignUp from "./components/Sign-Up.js";
-import TwitterAuth from "./components/TwitterAuth.js";
+
 
 class Home extends React.Component {
   render() {
