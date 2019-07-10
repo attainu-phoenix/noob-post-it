@@ -1,7 +1,7 @@
 import {store} from '../store.js';
 
 
-export default function UserAccountsReducer(
+export default function UserSocialAccountsReducer(
   accounts = [
     { network: "facebook", token: "ab", username: "mysweetbranch" },
     { network: "instagram", token: "abc", username: "mysweetbranch" },
@@ -16,6 +16,8 @@ export default function UserAccountsReducer(
   if (action.type === "UNLINK_ACCOUNT") {
     return accounts = accounts.filter( account => account.token !== action.token);
   }
+
+
 
   return accounts;
 }
