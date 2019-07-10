@@ -17,5 +17,7 @@ export default function UserSocialAccountsReducer(
     return accounts = accounts.filter( account => account.token !== action.token);
   }
 
+
+
   return accounts;
 }
