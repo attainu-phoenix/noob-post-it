@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LoginComponent from "./components/Login.js";
+import Login from "./components/Login.js";
 import {Provider} from "react-redux";
 import {store} from "./store/store.js";
 import {ManageAccounts} from "./components/Manage-Accounts.js";
-
+import SignUp from "./components/Sign-Up.js";
 
 class Home extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class Home extends React.Component {
       <div className="container-fullwidth">
       <div className="row">
         <div className="col-md-12">
-          <ManageAccounts />
+          <SignUp/>
         </div>
       </div>
       </div>

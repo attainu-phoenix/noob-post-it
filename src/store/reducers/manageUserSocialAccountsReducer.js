@@ -1,7 +1,7 @@
 import {store} from '../store.js';
 
 
-export default function UserAccountsReducer(
+export default function UserSocialAccountsReducer(
   accounts = [
     { network: "facebook", token: "ab", username: "mysweetbranch" },
     { network: "instagram", token: "abc", username: "mysweetbranch" },

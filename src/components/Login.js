@@ -1,4 +1,6 @@
 import React from "react";
+import { store, stateMapper} from "../store/store.js";
+import {connect} from "react-redux";
 
 class LoginComponent extends React.Component {
   state = {
@@ -40,20 +42,17 @@ class LoginComponent extends React.Component {
     return initialState.isFormValid;
   }
 
-  checkCredentials() {
-    let { email, password } = this.state;
-    let User = JSON.parse(localStorage.getItem("user"));
-    return User.email !== email || User.password !== password ? false : true;
-  }
+  
 
   handleSubmit = e => {
     if (!this.validateInput()) {
       return;
     }
 
-    return !this.checkCredentials()
-      ? console.log("invalid credentials")
-      : console.log("logged in");
+    store.dispatch({
+      type:"LOGIN_USER",
+      data:this.state
+    })
   };
 
   render() {
@@ -111,6 +110,16 @@ class LoginComponent extends React.Component {
                     </h3>
                   </div>
                 )}
+
+                {this.props.useraccount.error && (
+                      <div>
+                        <h3>
+                          <span className="badge badge-pill badge-danger">
+                            {this.props.useraccount.error}
+                          </span>
+                        </h3>
+                      </div>
+                )}
                 <label>Email</label>
                 <input
                   onChange={this.handleChange}
@@ -147,4 +156,5 @@ class LoginComponent extends React.Component {
   }
 }
 
-export default LoginComponent;
+let Login = connect(stateMapper)(LoginComponent);
+export default Login;
