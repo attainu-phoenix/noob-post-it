@@ -13,7 +13,7 @@ class Home extends React.Component {
       <div className="container-fullwidth">
       <div className="row">
         <div className="col-md-12">
-       
+          <TwitterAuth />
         </div>
       </div>
       </div>
