@@ -21,7 +21,7 @@ class ManageAccountsComponent extends React.Component {
   render() {
     return (
       <ul className="list-group">
-        {this.props.useraccounts.map(user => {
+        {this.props.usersocialaccounts.map(user => {
           return (
             <li key={user.token} className="list-group-item d-flex justify-content-between align-items-center">
               <h6>{user.network}</h6>

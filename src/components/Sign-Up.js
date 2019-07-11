@@ -1,4 +1,6 @@
 import React from "react";
+import { store,stateMapper } from "../store/store.js";
+import {connect} from "react-redux";
 
 
 class SignUpComponent extends React.Component {
@@ -57,8 +59,10 @@ class SignUpComponent extends React.Component {
     handleSubmit = e => {  
         if(!this.validateInput()) {return;}
 
-       console.log(this.state);
-
+        store.dispatch({
+            type:"SIGNUP_USER",
+            data:this.state
+        })
     }
 
     render() {
@@ -105,6 +109,15 @@ class SignUpComponent extends React.Component {
                                     </span>
                                 </h3>
                             </div>}
+                    {this.props.useraccount.error && (
+                      <div>
+                        <h3>
+                          <span className="badge badge-pill badge-danger">
+                            {this.props.useraccount.error}
+                          </span>
+                        </h3>
+                      </div>
+                )}
                         <label>Name</label>
                         <input onChange={this.handleChange}  name="name" type="text" className={`form-control ${!this.state.formState.isNameValid && "is-invalid"}`}  placeholder="Enter your name"/>
                     </div>
@@ -125,4 +138,6 @@ class SignUpComponent extends React.Component {
     }
 }
 
-export default SignUpComponent;
+let SignUp = connect(stateMapper)(SignUpComponent);
+
+export default SignUp;
