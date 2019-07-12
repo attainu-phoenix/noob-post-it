@@ -5,9 +5,8 @@ const HEADERS = {
 
 
 function connectTwitter(store,action) {
-
-    let owner = action.data.owner;
-
+    
+    let owner = action.data.objectId;
     let url = `http://localhost:1337/parse/classes/SocialAccounts/${owner}`;
 
     fetch(url, {
@@ -15,15 +14,40 @@ function connectTwitter(store,action) {
         headers: HEADERS,
         body: JSON.stringify({
             isTwitterConnected:true,
-            twitterData:action.data.twitterData
+            twitterData:Object.assign({},action.data.twitterData)
         })
     })
     .then(data => data.json())
-    .then(json => {
-        console.log(json);
+    .then(result => {
+        store.dispatch({
+            type:"TWITTER_STATUS",
+            data:result
+        })
     })
     .catch(err => console.log(err));
 }
 
+function removeTwitter(store,action) {
+    
+    let owner = action.objectId;
+    let url = `http://localhost:1337/parse/classes/SocialAccounts/${owner}`;
 
-export {connectTwitter};
+    fetch(url, {
+        method: "put",
+        headers: HEADERS,
+        body: JSON.stringify({
+            isTwitterConnected:false,
+            twitterData:{}
+        })
+    })
+    .then(data => data.json())
+    .then(result => {
+        store.dispatch({
+            type:"TWITTER_STATUS",
+            data:result
+        })
+    })
+    .catch(err => console.log(err));
+}
+
+export {connectTwitter,removeTwitter};

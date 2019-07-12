@@ -1,9 +1,11 @@
 import {createStore, combineReducers} from 'redux';
 import UserSocialAccountsReducer from "./reducers/UserSocialAccountsReducer.js"
 import UserAccountReducer from "./reducers/UserAccountReducer.js";
+import UserTwitterAccountReducer from "./reducers/UserTwitterAccountReducer.js";
 let reducer = combineReducers({ 
     usersocialaccounts:UserSocialAccountsReducer,
-    useraccount:UserAccountReducer
+    useraccount:UserAccountReducer,
+    twitter:UserTwitterAccountReducer
 });
 
 let store = createStore(reducer);

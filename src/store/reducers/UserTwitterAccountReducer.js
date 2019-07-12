@@ -1,5 +1,6 @@
 import {store} from '../store.js';
-import {connectTwitter} from "../api/handleTwitterAuth.js";
+import {connectTwitter,removeTwitter} from "../api/handleTwitterAuth.js";
+import fetchSocialAccounts from "../api/fetchUserSocialAccounts.js";
 
 export default function UserTwitterAccountReducer(twitter={},action) {
 
@@ -7,8 +8,13 @@ export default function UserTwitterAccountReducer(twitter={},action) {
      connectTwitter(store,action);
   }
 
+  if (action.type === "REMOVE_TWITTER") {
+    removeTwitter(store,action);
+ }
+
   if (action.type === "TWITTER_STATUS") {
-    return twitter;
+      fetchSocialAccounts(store,action)
+      return action.data;
   }
 
 
