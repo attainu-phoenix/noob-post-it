@@ -8,7 +8,7 @@ function sendTweet() {
   let status = "your tweet text";
   let social = JSON.parse(localStorage.getItem("social"));
 
-  fetch("http://localhost:4444/twitter/post", {
+  fetch(`${config.url}/twitter/post`, {
     method: "post",
     headers: HEADERS,
     body: JSON.stringify({
@@ -29,7 +29,7 @@ function sendTweet() {
 function removeTweet() {
   let social = JSON.parse(localStorage.getItem("social"));
   let postId = "post if from actions";
-  fetch(`http://localhost:4444/twitter/post/${postId}`, {
+  fetch(`${config.url}/twitter/post/${postId}`, {
     method: "delete",
     headers: HEADERS,
     body: JSON.stringify({

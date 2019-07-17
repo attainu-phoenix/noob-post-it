@@ -1,4 +1,7 @@
 module.exports = {
-    consumerKey: 'WX8L3OrRSX71kawHfbAOgzVv8',
-    consumerSecret: 'DFYj5rUJj0pTy6l6UQaYbFFSTkIXsOvXIMM5fA9SiyYtwKk459'
+    consumerKey: 'your consumer key here',
+    consumerSecret: 'your consumer secret here',
+    loginUrl:"http://noob-parse.herokuapp.com/auth/twitter/login",
+    tokenUrl:"http://noob-parse.herokuapp.com/auth/twitter/request",
+    url:"http://noob-parse.herokuapp.com"
 };
