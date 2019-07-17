@@ -1,33 +1,29 @@
 import React from 'react';
-
+import { store, stateMapper} from "../store/store.js";
+import {connect} from "react-redux";
+import {Link} from 'react-router-dom';
 
 class NavBarComponent extends React.Component{
         render(){
                 return(
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Post IT</a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                    <div className="collapse navbar-collapse" id="navbarText">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#"><i className="fa fa-share-alt" aria-hidden="true"></i>Share</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Published</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#"><i className="fa fa-search" aria-hidden="true"></i> Search</a>
-                            </li>
-                        </ul>
-                        <span className="navbar-text">
-                                <a className="nav-link" href="#">Logout</a>
-                        </span>
-                    </div>
-                </nav>
+                   
+                        <nav className='hnavbar'>
+                                <div className='hrow'>
+                                    <img src='./Logo.png.ico' alt='POST IT' className='hlogo'/>
+                                    <ul className="hmain-nav">
+                                        <li><Link className='hnav-ani' to='/dashboard'>Create</Link></li>
+                                        <li><Link className='hnav-ani' to='/dashboard/viewposts'>View</Link></li>
+                                        <li><Link className='hnav-ani' to='/'>Search</Link></li>
+                                        <li><Link className='hbtn hbtn-full' to='/logout'>Logout</Link></li>
+                                    </ul>
+                                </div>
+                        </nav>
+                   
+                   
         )
     }
 }
 
-export default NavBarComponent;
+let NavBar=connect(stateMapper)(NavBarComponent)
+
+export default NavBar;

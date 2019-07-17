@@ -1,38 +1,64 @@
 import React from 'react';
-
-
+import { store, stateMapper} from "../store/store.js";
+import {connect} from "react-redux";
+import {Link} from 'react-router-dom';
+import TwitterLogin from "react-twitter-auth";
+let social = JSON.parse(localStorage.getItem("social"));
 class SideBarComponent extends React.Component{
     
+    componentDidMount() {
+        store.dispatch({
+          type: "FETCH_ACCOUNTS"
+        });
+      }
+      handleUnlink() {
+        store.dispatch({
+          type: "REMOVE_TWITTER",
+          objectId: social.objectId
+        });
+      }
     
-    
-    
-    
-    
+      callback(data) {
+      console.log(data);
+        let initialState=Object.assign({}, social);
+        data.json().then(d => {
+          initialState.isTwitterConnected = true;
+          initialState.twitterData = d;
+          store.dispatch({
+            type: "CONNECT_TWITTER",
+            data: initialState
+          });
+        });
+      }
     render(){
         
         return(
-            <div className='col-md-4'>
-
-                <div className='row'>
-                    <ul className="list-group">
-                        <li className="list-group-item active">Connected Social Accounts</li>
-                        {this.props.isAccountsConnected.isFacebookConnected ? <li className="list-group-item"><a href="#" className="fa fa-lg fa-facebook"> Facebook Connected</a></li> : <p></p>}
-                        {this.props.isAccountsConnected.isInstagramConnected ? <li className="list-group-item"><a href="#" className="fa fa-lg fa-instagram"> Instagram Connected</a></li> : <p></p>}
-                        {this.props.isAccountsConnected.isTwitterConnected ? <li className="list-group-item"><a href="#" className="fa fa-lg fa-twitter"> Twitter Connected</a></li> : <p></p>}
-                    </ul>
+            <div className='col-md-3 hsidebar'>
+                <div className='row' style={{paddingBottom : 6}}>
+                    <input type='submit' className="mx-auto btn btn-ghost" value="Connect to instagram"/>
+                </div>
+                <div className='row' style={{paddingBottom : 6}}>
+                    <input type='submit' className="mx-auto btn btn-ghost" value="Connect to facebook"/>
+                </div>
+                <div className='row' style={{paddingBottom : 50}}>
+                    {(!this.props.usersocialaccounts.isTwitterConnected)?
+                         <TwitterLogin
+                         loginUrl="http://localhost:4444/auth/twitter/login"
+                         onFailure={this.callback}
+                         onSuccess={this.callback}
+                         requestTokenUrl="http://localhost:4444/auth/twitter/request"
+                     />
+                    :<button className='hbtn hbtn-ghost' onClick={this.handleUnlink}><i><ion-icon name="logo-twitter"></ion-icon></i>{this.props.usersocialaccounts.twitterData.screen_name}</button>}
+                   
                 </div>
                 <div className='row'>
-                    <ul class="list-group">
-                        <li class="list-group-item active bg-danger">Not connected Social Accounts</li>
-                        {this.props.isAccountsConnected.isFacebookConnected ? <p></p> : <button onClick={this.props.facebookConnected} className="fa fa-lg fa-facebook">Connect Facebook</button>}
-                        {this.props.isAccountsConnected.isInstagramConnected ? <p></p> : <button onClick={this.props.instagramConnected} className="fa fa-lg fa-instagram">Connect Instagram</button>}
-                        {this.props.isAccountsConnected.isTwitterConnected ? <p></p> : <button onClick={this.props.twitterConnected} className="fa fa-lg fa-twitter">Connect twitter</button>}
-                        
-                    </ul>
+                  <input type='submit' className="mx-auto btn btn-ghost" value="Manage Accounts"/>
                 </div>
             </div>
         );
     }
 }
 
-export default SideBarComponent;
+let SideBar=connect(stateMapper)(SideBarComponent);
+
+export default SideBar;

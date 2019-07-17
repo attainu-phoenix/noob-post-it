@@ -4,7 +4,7 @@ const HEADERS = {
   "Content-Type": "application/json"
 };
 
-function sendTweet() {
+function sendTweet(store,action) {
   let status = "your tweet text";
   let social = JSON.parse(localStorage.getItem("social"));
 
@@ -16,19 +16,22 @@ function sendTweet() {
       consumer_secret: config.consumerSecret,
       access_token_key: social.twitterData.oauth_token,
       access_token_secret: social.twitterData.oauth_token_secret,
-      status: status
+      status: action.data.caption
     })
   })
     .then(data => data.json())
     .then(result => {
-      console.log(result);
+      store.dispatch({
+        type : 'POSTED_TO_TWITTER',
+        data  : result
+      })
     })
     .catch(err => console.log(err));
 }
 
 function removeTweet() {
   let social = JSON.parse(localStorage.getItem("social"));
-  let postId = "post if from actions";
+  let postId = action.twitterpostId;
   fetch(`http://localhost:4444/twitter/post/${postId}`, {
     method: "delete",
     headers: HEADERS,

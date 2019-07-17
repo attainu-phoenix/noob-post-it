@@ -8,7 +8,7 @@ function connectTwitter(store,action) {
     
     let owner = action.data.objectId;
     let url = `http://localhost:1337/parse/classes/SocialAccounts/${owner}`;
-
+    
     fetch(url, {
         method: "put",
         headers: HEADERS,
