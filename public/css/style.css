@@ -63,7 +63,7 @@ h2{
 h2:after{
     display: block;
     height: 2px;
-    background-color :#4277f9;
+    background-color :#f1805e;
     content: " ";
     width: 100px;
     margin: 0 auto;
@@ -88,7 +88,7 @@ h3{
 .icon-big{
     font-size: 350%;
     display: block;
-    color : #4277f9;
+    color : #f1805e;
     margin-bottom: 10px;
 }
 /*---------BUTTONS-----------*/
@@ -110,16 +110,16 @@ button{
 .hbtn-full:visited,
 input[type=submit],
 button{
-    background-color: #4277f9;
-    border: 1px solid #4277f9;
+    background-color: #f1805e;
+    border: 1px solid #f1805e;
     color: #fff;
     margin-right : 15px;
 }
 
 .hbtn-ghost:link,
 .hbtn-ghost:visited{
-    border: 1px solid #4277f9;
-    color: #4277f9;
+    border: 1px solid #f1805e;
+    color: #f1805e;
 }
 
 .hbtn:hover,
@@ -128,7 +128,7 @@ input[type=submit]:hover,
 input[type=submit]:active,
 button:hover,
 button:active{
-    background-color: #084bef;
+    background-color: #c84720;
 }
 
 .hbtn-full:hover,
@@ -137,12 +137,12 @@ input[type=submit]:hover,
 input[type=submit]:active,
 button:hover,
 button:active{
-    border: 1px solid  #084bef;
+    border: 1px solid  #c84720;
 }
 
 .hbtn-ghost:hover,
 .hbtn-ghost:active{
-    border: 1px solid  #084bef;
+    border: 1px solid  #c84720;
     color: #fff;
 }
 
@@ -209,7 +209,7 @@ header{
 
 .hnav-ani:hover,
 .hnav-ani:active{
-    border-bottom: 2px solid #4277f9;
+    border-bottom: 2px solid #f1805e;
 
 }
 
@@ -225,7 +225,7 @@ textarea{
     width : 100%;
     padding: 7px;
     border-radius: 10px;
-    border: 1px solid #4277f9;
+    border: 1px solid #f1805e;
     height: 100px;
     margin: 10px auto;
 }
@@ -244,4 +244,49 @@ textarea{
 
 .hcreatepost{
     padding-left: 10px;
+}
+
+/*-----------------------------------------------------------*/
+/*REDBUTTON*/
+/*-----------------------------------------------------------*/
+
+.hredbtn:link,
+.hredbtn:visited{
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    transition: background-color 0.2s,border 0.2s,color 0.2s;
+    
+}
+
+.hredbtn-full:link,
+.hredbtn-full:visited{
+    background-color: #FF0000;
+    border: 1px solid #FF0000;
+    color: #fff;
+    margin-right : 15px;
+}
+
+.hredbtn-ghost:link,
+.hredbtn-ghost:visited{
+    border: 1px solid #FF0000;
+    color: #FF0000;
+}
+
+.hredbtn:hover,
+.hredbtn:activ{
+    background-color: #FF0000;
+}
+
+.hredbtn-full:hover,
+.hredbtn-full:active{
+    border: 1px solid  #FF0000;
+}
+
+.hredbtn-ghost:hover,
+.hredbtn-ghost:active{
+    border: 1px solid  #FF0000;
+    color: #fff;
 }

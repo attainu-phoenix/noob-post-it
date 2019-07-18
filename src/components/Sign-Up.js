@@ -1,8 +1,8 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { store,stateMapper } from "../store/store.js";
 import {connect} from "react-redux";
-
+var signedUp;
 
 class SignUpComponent extends React.Component {
     state = {
@@ -55,7 +55,11 @@ class SignUpComponent extends React.Component {
 
         return initialState.isFormValid;
     }
-
+    doRedirect(){
+        if(signedUp===true){
+            return <Redirect to='/login'/>
+        }
+    }
 
     handleSubmit = e => {  
         if(!this.validateInput()) {return;}
@@ -64,13 +68,12 @@ class SignUpComponent extends React.Component {
             type:"SIGNUP_USER",
             data:this.state
         })
-        
-        window.location.href('/login');
+       signedUp=true;
     }
 
     render() {
         return (
-    
+   
 <React.Fragment>
         <div className='landing'>
             <nav className='hnavbar'>
@@ -122,6 +125,7 @@ class SignUpComponent extends React.Component {
                     <button onClick={this.handleSubmit}  type="button" className="btn btn-primary">Sign-Up</button>
                 </form>
           </div>
+          { this.doRedirect()}
       </div>      
  </React.Fragment>          
         );

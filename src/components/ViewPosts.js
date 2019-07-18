@@ -2,14 +2,22 @@ import React from "react";
 import { store, stateMapper} from "../store/store.js";
 
 import {connect} from "react-redux";
-import {Route , Link ,BrowserRouter as Router} from 'react-router-dom';
-
+import {Route , Link ,BrowserRouter as Router,Redirect} from 'react-router-dom';
+var user;
 class ViewPostsComponent extends React.Component{
     componentDidMount() {
-        store.dispatch({
-          type: "FETCH_POSTS"
-        });
-        console.log(this.props.Posts)
+        user=localStorage.getItem('user');
+        if(user){
+          store.dispatch({
+            type: "FETCH_POSTS"
+          });
+        }
+       
+      }
+      doRedirect(){
+        if(!user){
+         return <Redirect to='/login'/>
+        }
       }
       
       renderPosts(){

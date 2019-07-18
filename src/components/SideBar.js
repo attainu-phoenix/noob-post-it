@@ -17,6 +17,11 @@ class SideBarComponent extends React.Component{
           objectId: social.objectId
         });
       }
+      constructor(props){
+        super(props);
+        this.callback=this.callback.bind(this);
+        this.twitterLoginComponent=this.twitterLoginComponent.bind(this);
+      }
     
       callback(data) {
       console.log(data);
@@ -30,6 +35,14 @@ class SideBarComponent extends React.Component{
           });
         });
       }
+      twitterLoginComponent(){
+       return (<TwitterLogin
+        loginUrl="http://localhost:4444/auth/twitter/login"
+        requestTokenUrl="http://localhost:4444/auth/twitter/request"
+        onFailure={this.callback}
+        onSuccess={this.callback}  
+      />)
+      }
     render(){
         
         return(
@@ -41,13 +54,8 @@ class SideBarComponent extends React.Component{
                     <input type='submit' className="mx-auto btn btn-ghost" value="Connect to facebook"/>
                 </div>
                 <div className='row' style={{paddingBottom : 50}}>
-                    {(!this.props.usersocialaccounts.isTwitterConnected)?
-                         <TwitterLogin
-                         loginUrl="http://localhost:4444/auth/twitter/login"
-                         onFailure={this.callback}
-                         onSuccess={this.callback}
-                         requestTokenUrl="http://localhost:4444/auth/twitter/request"
-                     />
+                    {(this.props.usersocialaccounts&& !this.props.usersocialaccounts.isTwitterConnected)?
+                        this.twitterLoginComponent()
                     :<button className='hbtn hbtn-ghost' onClick={this.handleUnlink}><i><ion-icon name="logo-twitter"></ion-icon></i>{this.props.usersocialaccounts.twitterData.screen_name}</button>}
                    
                 </div>

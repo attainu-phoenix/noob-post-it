@@ -20,11 +20,5 @@ export default function PostsReducer(posts=[],action) {
     if (action.type === "DELETE_POST") {
         deletePost(store,action);
      }
-     if (action.type === "FETCH_ONE_POST") {
-        fetchOnePost(store,action);
-     }
-     if (action.type === "ONE_POST_FETCHED") {
-        posts=action.data.results;
-     }
     return posts;
 }
