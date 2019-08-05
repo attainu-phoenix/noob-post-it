@@ -2,6 +2,7 @@ import React from "react";
 import TwitterLogin from "react-twitter-auth";
 import { connect } from "react-redux";
 import { store, stateMapper } from "../store/store.js";
+import config from "../config.js";
 
 let social = JSON.parse(localStorage.getItem("social"));
 
@@ -11,6 +12,7 @@ class TwitterAuthComponent extends React.Component {
       type: "FETCH_ACCOUNTS"
     });
   }
+
 
   callback(data) {
     let initialState = Object.assign({}, this.props.usersocialaccounts);
@@ -39,7 +41,9 @@ class TwitterAuthComponent extends React.Component {
             <div className="card-body">
               <h5 className="card-title">Connect Your Twitter Account</h5>
               <p className="card-text">
+
                 
+
               </p>
             </div>
           </div>

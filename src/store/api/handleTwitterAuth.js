@@ -1,3 +1,4 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
@@ -7,8 +8,12 @@ const HEADERS = {
 function connectTwitter(store,action) {
     
     let owner = action.data.objectId;
-    let url = `http://localhost:1337/parse/classes/SocialAccounts/${owner}`;
+
     
+
+    let url = `${config.url}/parse/classes/SocialAccounts/${owner}`;
+
+
     fetch(url, {
         method: "put",
         headers: HEADERS,
@@ -30,7 +35,7 @@ function connectTwitter(store,action) {
 function removeTwitter(store,action) {
     
     let owner = action.objectId;
-    let url = `http://localhost:1337/parse/classes/SocialAccounts/${owner}`;
+    let url = `${config.url}/parse/classes/SocialAccounts/${owner}`;
 
     fetch(url, {
         method: "put",
