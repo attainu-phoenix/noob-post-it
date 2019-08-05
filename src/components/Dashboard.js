@@ -1,83 +1,69 @@
 import React from "react";
-import NavBarComponent from './NavBar.js';
-import SideBarComponent from './SideBar.js';
-import CreatePostComponent from "./CreatePost.js";
+import { store, stateMapper} from "../store/store.js";
+
+import {connect} from "react-redux";
+import {BrowserRouter as Router, Route,Link,Redirect} from 'react-router-dom';
+import NavBar from './NavBar.js'
+import CreatePost from './CreatePost.js';
+import SideBar from './SideBar.js'
+import ViewPosts from './ViewPosts.js';
+import ManagePost from "./ManagePost.js";
 
 
-class Dashboard extends React.Component {
+class DashboardComponent extends React.Component{
     constructor(props){
-      super(props);
-      this.state={
-          isFacebookConnected : false,
-          isTwitterConnected  : false,
-          isInstagramConnected : false,
-          caption : "",
-          photo   : "",
-          isFacebookChecked : false,
-          isInstagramChecked : false,
-          isTwitterChecked : false,
-          isPostSubmitted : false
-      }
-      this.facebookConnected=this.facebookConnected.bind(this);
-      this.instagramConnected=this.instagramConnected.bind(this);
-      this.twitterConnected=this.twitterConnected.bind(this);
-      this.captionChanged=this.captionChanged.bind(this);
-      this.photoLocation=this.photoLocation.bind(this);
-      this.handleFacebookChecked=this.handleFacebookChecked.bind(this);
-      this.handleInstagramChecked=this.handleInstagramChecked.bind(this);
-      this.handleTwitterChecked=this.handleTwitterChecked.bind(this);
-      this.submitPost=this.submitPost.bind(this);
-  
-  }
-  facebookConnected = (event) =>{
-      this.setState({isFacebookConnected : true});
-  }
-  instagramConnected = (event) =>{
-      this.setState( {isInstagramConnected : true});
-  }
-  twitterConnected = (event) =>{
-      this.setState({isTwitterConnected : true}); 
-  }
-  captionChanged = (event) =>{
-  this.setState({caption : event.target.value});
-  }
-  photoLocation = (event) =>{
-    this.setState({photo : event.target.value});
-  }
-  handleFacebookChecked () {
-    this.setState({isFacebookChecked: !this.state.isFacebookChecked});
-  }
-  handleInstagramChecked () {
-    this.setState({isInstagramChecked: !this.state.isInstagramChecked});
-  }
-  handleTwitterChecked () {
-    this.setState({isTwitterChecked: !this.state.isTwitterChecked});
-  }
-  submitPost = () =>{
-    this.setState({isPostSubmitted : true})
-    console.log(this.state);
-  }
-    render() {
-      return (<div className='container'>
-                <NavBarComponent />
-  
-                <div >
-                  <div class='row'>
-                    <SideBarComponent isAccountsConnected={this.state}
-                                      facebookConnected={this.facebookConnected}
-                                      instagramConnected={this.instagramConnected}
-                                      twitterConnected={this.twitterConnected}/>
-                    <CreatePostComponent isAccountsConnected={this.state}
-                                          captionChanged={this.captionChanged}
-                                          photoLocation={this.photoLocation}
-                                          handleFacebookChecked={this.handleFacebookChecked}
-                                          handleInstagramChecked={this.handleInstagramChecked}
-                                          handleTwitterChecked={this.handleTwitterChecked}
-                                          submitPost={this.submitPost}/>
-                  </div>
-                </div>
-              </div>);
+        super(props);
+        this.state={
+            userObjectId : this.props.useraccount.objectId,
+            userEmail : this.props.useraccount.email,
+            userName  : this.props.useraccount.name,
+            isFacebookConnected : false,
+            isTwitterConnected  : false,
+            isInstagramConnected : false,
+            caption : "",
+        }
+        this.doRedirect=this.doRedirect.bind(this);
+        this.changeCaption=this.changeCaption.bind(this);
     }
-  }
 
-  export default Dashboard;
+
+      doRedirect = () =>{
+        if(localStorage.getItem('user')){
+            return <Redirect to='/dashboard'/>
+            
+        }
+        else{
+            return <Redirect to='/login'/>
+        }
+        
+      } 
+      changeCaption=(event)=>{this.setState({caption : event.target.value})}
+    render(){
+        return(
+            
+            <div className='landing'>
+               
+                <NavBar />
+                <div className='container' style={{marginTop : 200}}>
+                    <div className='row'>
+                        <SideBar/>
+                        <Route path='/dashboard' exact={true} render={(props)=><CreatePost 
+                                                                CurrentState={this.state}
+                                                                changeCaption={this.changeCaption}/>} />
+                        <Route path='/dashboard/viewposts' exact={true} component={ViewPosts} />
+                        <Route path='/dashboard/managepost/:postId' exact={true} component={ManagePost} />
+                        
+                    </div>
+                </div>
+               {this.doRedirect()}
+            </div>
+           
+        )
+    }
+
+}
+
+let Dashboard=connect(stateMapper)(DashboardComponent);
+
+export default Dashboard;
+

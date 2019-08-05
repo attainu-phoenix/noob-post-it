@@ -31,6 +31,11 @@ export default function UserAccountReducer(account={},action) {
     return action.data;
   }
 
+  if(action.type==='LOGOUT'){
+    localStorage.removeItem('user');
+    localStorage.removeItem('social');
+  }
+
 
 
   return account;

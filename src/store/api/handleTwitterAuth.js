@@ -8,7 +8,11 @@ const HEADERS = {
 function connectTwitter(store,action) {
     
     let owner = action.data.objectId;
+
+    
+
     let url = `${config.url}/parse/classes/SocialAccounts/${owner}`;
+
 
     fetch(url, {
         method: "put",

@@ -4,11 +4,14 @@ const HEADERS = {
   "Content-Type": "application/json"
 };
 
-function sendTweet() {
-  let status = "your tweet text";
+function sendTweet(store,action) {
+  let status = action.data;
+  
   let social = JSON.parse(localStorage.getItem("social"));
 
+
   fetch(`${config.url}/twitter/post`, {
+
     method: "post",
     headers: HEADERS,
     body: JSON.stringify({
@@ -16,20 +19,36 @@ function sendTweet() {
       consumer_secret: config.consumerSecret,
       access_token_key: social.twitterData.oauth_token,
       access_token_secret: social.twitterData.oauth_token_secret,
-      status: status
+      status: action.data
     })
   })
     .then(data => data.json())
     .then(result => {
       console.log(result);
+      store.dispatch({
+        type : 'POSTED_TO_TWITTER',
+        data  : result
+      })
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err)); 
 }
+
+
+function removeTweet(store,action) {
+   
+  if(!action.twitterPostId){
+      console.log("Didn't get the id");
+    }
+    else{
+      let social = JSON.parse(localStorage.getItem("social"));
+    let postId = action.twitterPostId;
+    let parsePostId=action.parsePostId;
 
 function removeTweet() {
   let social = JSON.parse(localStorage.getItem("social"));
   let postId = "post if from actions";
   fetch(`${config.url}/twitter/post/${postId}`, {
+
     method: "delete",
     headers: HEADERS,
     body: JSON.stringify({
@@ -42,8 +61,18 @@ function removeTweet() {
     .then(data => data.json())
     .then(result => {
       console.log(result);
+      store.dispatch({
+        type : 'TWEET_DELETED',
+        postId : parsePostId
+
+      })
     })
     .catch(err => console.log(err));
+    }
+ 
+    
+  
+  
 }
 
-export { sendTweet, removeTweet };
+export {sendTweet,removeTweet };

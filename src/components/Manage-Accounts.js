@@ -9,7 +9,7 @@ class ManageAccountsComponent extends React.Component {
     return (
       <div className="row">
         <TwitterAuth />
-    </div>
+      </div>
     );
   }
 }

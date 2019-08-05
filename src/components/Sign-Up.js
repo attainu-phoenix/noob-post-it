@@ -1,7 +1,8 @@
 import React from "react";
+import {Link, Redirect} from 'react-router-dom';
 import { store,stateMapper } from "../store/store.js";
 import {connect} from "react-redux";
-
+var signedUp;
 
 class SignUpComponent extends React.Component {
     state = {
@@ -54,7 +55,11 @@ class SignUpComponent extends React.Component {
 
         return initialState.isFormValid;
     }
-
+    doRedirect(){
+        if(signedUp===true){
+            return <Redirect to='/login'/>
+        }
+    }
 
     handleSubmit = e => {  
         if(!this.validateInput()) {return;}
@@ -63,39 +68,27 @@ class SignUpComponent extends React.Component {
             type:"SIGNUP_USER",
             data:this.state
         })
+       signedUp=true;
     }
 
     render() {
         return (
-    
+   
 <React.Fragment>
-            <nav className="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
-        
-                <a className="navbar-brand" href="/">PostIt</a>
-        
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#btcNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-        
-                <div className="collapse navbar-collapse" id="btcNav">
-                    <ul className="navbar-nav ml-auto">
-       
-    
-                        <li className="nav-item">
-                            <a href="/" className="nav-link">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/login" className="nav-link">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/prcing" className="nav-link">Pricing</a>
-                        </li>
-                        
-                    </ul>
-                </div>
+        <div className='landing'>
+            <nav className='hnavbar'>
+                    <div class='hrow'>
+                        <img src='./Logo.png.ico' alt='POST IT' class='hlogo'/>
+                        <ul class="hmain-nav">
+                        <li><Link className='hnav-ani' to='/'>Home</Link></li>
+                        <li><Link className='hnav-ani' to='/'>About</Link></li>
+                        <li><Link className='hbtn hbtn-full' to='/Login'>Login</Link></li>
+                        </ul>
+                    </div>
             </nav>
-      <div className="row">
+        </div>
+        
+      <div className="row" style={{marginTop : 180}}>
           <div className="offset-md-4 col-md-4">
           <h2 className="display-4 text-center">Sign Up Here</h2>
             <hr/>
@@ -132,6 +125,7 @@ class SignUpComponent extends React.Component {
                     <button onClick={this.handleSubmit}  type="button" className="btn btn-primary">Sign-Up</button>
                 </form>
           </div>
+          { this.doRedirect()}
       </div>      
  </React.Fragment>          
         );

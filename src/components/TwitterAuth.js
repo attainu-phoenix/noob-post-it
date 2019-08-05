@@ -13,8 +13,9 @@ class TwitterAuthComponent extends React.Component {
     });
   }
 
-  callback = data => {
-    let initialState = Object.assign({}, social);
+
+  callback(data) {
+    let initialState = Object.assign({}, this.props.usersocialaccounts);
     data.json().then(d => {
       initialState.isTwitterConnected = true;
       initialState.twitterData = d;
@@ -40,12 +41,9 @@ class TwitterAuthComponent extends React.Component {
             <div className="card-body">
               <h5 className="card-title">Connect Your Twitter Account</h5>
               <p className="card-text">
-                <TwitterLogin
-                  loginUrl={config.loginUrl}
-                  onFailure={this.callback}
-                  onSuccess={this.callback}
-                  requestTokenUrl={config.tokenUrl}
-                />
+
+                
+
               </p>
             </div>
           </div>
